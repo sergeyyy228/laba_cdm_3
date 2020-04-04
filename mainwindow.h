@@ -1,7 +1,9 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <math.h>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +18,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_pushButton_clicked();
+
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
@@ -38,6 +42,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    bool countBrackets(QString data);
+    QStringList findVariables(QString data);
+
+    QStringList findOperatons(QString str);
+    void buildTable(QStringList variables, QString lineEdit);
 };
 
 #endif // MAINWINDOW_H
