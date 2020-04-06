@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -188,49 +188,59 @@ QStringList MainWindow::getOrder()
 void MainWindow::on_pushButton_2_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+'+');
+    ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+'&');
+    ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+'*');
+    ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+'!');
+    ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_9_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'@');
+     ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_8_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'=');
+     ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_7_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'#');
+     ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_6_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'|');
+     ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_10_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'(');
+     ui->lineEdit->setFocus();
 }
 
 void MainWindow::on_pushButton_11_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+')');
+     ui->lineEdit->setFocus();
 }
