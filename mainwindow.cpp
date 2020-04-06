@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,7 +18,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    if (!countBrackets(ui->lineEdit->text()))
+    if(ui->lineEdit->text()==""){
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.setInformativeText("Line is empty!");
+        msgBox.exec();
+    }
+    else if (!countBrackets(ui->lineEdit->text()))
     {
         QMessageBox msgBox;
         msgBox.setText("Error");
