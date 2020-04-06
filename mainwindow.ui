@@ -24,10 +24,10 @@ background-color: rgb(247, 247, 247);</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>10</x>
       <y>240</y>
-      <width>511</width>
-      <height>301</height>
+      <width>571</width>
+      <height>291</height>
      </rect>
     </property>
     <property name="title">
@@ -36,10 +36,10 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QTableWidget" name="tableWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>30</y>
-       <width>451</width>
-       <height>251</height>
+       <x>10</x>
+       <y>20</y>
+       <width>551</width>
+       <height>271</height>
       </rect>
      </property>
     </widget>
