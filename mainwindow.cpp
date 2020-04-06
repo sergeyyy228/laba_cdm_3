@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -41,7 +41,6 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
-
 bool MainWindow::countBrackets(QString data)
 {
     if (data.count("(") == data.count(")"))
@@ -76,7 +75,7 @@ void MainWindow::buildTable(QStringList variables)
 
     QStringList data = ui->lineEdit->text().split(QRegularExpression("\\W+"));
     QStringList operations = getOrder();
-    operations.removeAll("");
+    operations.removeAll(" ");
 
     QStringList headers;
     headers.append(variables);

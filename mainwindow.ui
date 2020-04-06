@@ -53,9 +53,6 @@ background-color: rgb(247, 247, 247);</string>
       <height>211</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">bacground_colour: rgb(255, 255, 255)</string>
-    </property>
     <property name="title">
      <string>Data</string>
     </property>
