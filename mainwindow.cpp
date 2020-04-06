@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -102,7 +102,7 @@ void MainWindow::buildTable(QStringList variables)
 
     QStringList data = ui->lineEdit->text().split(QRegularExpression("\\W+"));
     QStringList operations = getOrder();
-    operations.removeAll(" ");
+    operations.removeAll("");
 
     QStringList headers;
     headers.append(variables);
@@ -125,7 +125,7 @@ void MainWindow::buildTable(QStringList variables)
             QTableWidgetItem * item;
             if (i == variables.length())
             {
-                        int a = variables.indexOf(data[0]);
+                int a = variables.indexOf(data[0]);
                 int b = variables.indexOf(data[0]);
                 
                 item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[i-variables.length()])));
