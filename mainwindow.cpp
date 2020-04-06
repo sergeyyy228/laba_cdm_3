@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,18 +33,7 @@ void MainWindow::on_pushButton_clicked()
     }else
     {
         QStringList variables = findVariables(ui->lineEdit->text());
-        if (variables.length() > 4)
-        {
-            QMessageBox msgBox;
-            msgBox.setText("Error");
-            msgBox.setInformativeText("Too more variables.");
-            msgBox.exec();
-        }
-        else
-        {
-            fillVariables(variables);
-            buildTable(variables);
-        }
+        buildTable(variables);
     }
 }
 
@@ -61,7 +50,6 @@ QStringList MainWindow::findVariables(QString str)
 {
     QStringList list = str.split(QRegularExpression("\\W+"));
     list.removeDuplicates();
-    list.sort();
 
     return list;
 }
@@ -105,13 +93,19 @@ int MainWindow::calculate(int x, int y, QString action)
 
 void MainWindow::buildTable(QStringList variables)
 {
-
     QStringList data = ui->lineEdit->text().split(QRegularExpression("\\W+"));
     QStringList operations = getOrder();
     operations.removeAll("");
 
     QStringList headers;
     headers.append(variables);
+
+
+    ui->tableWidget->setColumnCount(variables.length() + operations.length());
+    ui->tableWidget->setRowCount((int)pow(2,variables.length()));
+
+
+    fillVariables((int)pow(2,variables.length()),0,2,variables.length());
 
     for (int i = 0; i < operations.length();i++)
     {
@@ -120,7 +114,6 @@ void MainWindow::buildTable(QStringList variables)
         else
             headers.append(data[i]+operations[i]+data[i+1]);
     }
-//    headers.append("f");
 
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -145,63 +138,32 @@ void MainWindow::buildTable(QStringList variables)
         }
         data.pop_front();
     }
-//    ui->tableWidget->setVerticalHeaderLabels(inArr2);
-
-//    for (int i = 0; i < all;i++)
-//    {   // встановлюємо рядок і стовпець
-//        int row = i / (inArr1.length());
-//        int column = i % (inArr1.length());
-//        // встановлюємо значення
-//        QTableWidgetItem * item = new QTableWidgetItem(QString::number(compare(inArr1[column].toInt(),inArr2[row].toInt())));
-
-//        ui->tableWidget->setItem(row, column, item);
-//    }
     // змінюємо розміри таблиці
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
 }
 
 
-void MainWindow::fillVariables(QStringList variables)
+void MainWindow::fillVariables(int rows, int column, int multiplier, int variables)
 {
-    int rows = (int)pow(2,variables.length());
-    QStringList operations = getOrder();
+    if (variables == column)
+        return;
 
-    ui->tableWidget->setColumnCount(variables.length() + operations.length());
-    ui->tableWidget->setRowCount((int)pow(2,variables.length()));
-
-    for (int i = 0; i < rows;i++)
+    bool isIt = false;
+    for (int i = 1; i <= rows; i++)
     {
-        if (i < rows/2)
-        {
-            QTableWidgetItem * item = new QTableWidgetItem(QString::number(0));
-
-            ui->tableWidget->setItem(i, 0, item);
-        }
+        QTableWidgetItem * item;
+        if (!isIt)
+            item = new QTableWidgetItem("0");
         else
-        {
-            QTableWidgetItem * item = new QTableWidgetItem(QString::number(1));
+            item = new QTableWidgetItem("1");
+        if (i % (rows/(multiplier)) == 0)
+            isIt = !isIt;
 
-            ui->tableWidget->setItem(i, 0, item);
-        }
+        ui->tableWidget->setItem(i-1, column, item);
     }
 
-    if (variables.length() >= 2)
-    {
-        int period;
-
-        if (variables.length() == 2)
-            period = 1;
-        if (variables.length() == 3)
-            period = 2;
-        if (variables.length() == 4)
-            period = 4;
-
-        for (int i = 0; i < rows; i++)
-        {
-//            if (i )
-        }
-    }
+    fillVariables(rows,column+1,multiplier*2, variables);
 }
 
 

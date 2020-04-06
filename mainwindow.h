@@ -52,7 +52,9 @@ private:
 
     QStringList getOrder();
 
-    void fillVariables(QStringList variables);
+    void fillVariables(int rows, int column, int multiplier, int variables);
+
+//    void variablesWorker(int rows, int column, int multiplier, int variables);
 };
 
 #endif // MAINWINDOW_H
