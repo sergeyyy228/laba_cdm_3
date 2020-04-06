@@ -36,6 +36,7 @@ void MainWindow::on_pushButton_clicked()
         }
         else
         {
+            fillVariables(variables);
             buildTable(variables);
         }
     }
@@ -71,6 +72,32 @@ QStringList MainWindow::findOperatons(QString str)
 }
 
 
+int MainWindow::calculate(int x, int y, QString action)
+{
+    if (action == '&')
+    {
+        if ( x == 1 && y == 1)
+            return 1;
+        else
+            return 0;
+    }
+    else if(action == '|')
+    {
+        if (x == 1 && y == 1)
+            return 0;
+        else
+            return 1;
+    }
+    else if (action == '*')
+    {
+        if (x == 0 && y == 0)
+            return 0;
+        else
+            return 1;
+    }
+}
+
+
 void MainWindow::buildTable(QStringList variables)
 {
 
@@ -89,17 +116,29 @@ void MainWindow::buildTable(QStringList variables)
             headers.append(data[i]+operations[i]+data[i+1]);
     }
 //    headers.append("f");
-    ui->tableWidget->setColumnCount(variables.length() + operations.length());
-    ui->tableWidget->setRowCount((int)pow(2,variables.length()));
 
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-    for (int i = variables.length(); i < headers.length()+variables.length(); i++)
+    for (int i = variables.length(); i < headers.length(); i++)
     {
         for (int j = 0; j < (int)pow(2,variables.length());j++)
         {
-//            QTableWidgetItem *item = new QTableWidgetItem(сalculate(ui->tableWidget->itemAt(j,i), ui->tableWidget->itemAt(j, operations[i-variables.length()]));
+            QTableWidgetItem * item;
+            if (i == variables.length())
+            {
+                        int a = variables.indexOf(data[0]);
+                int b = variables.indexOf(data[0]);
+                
+                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[i-variables.length()])));
+            }
+            else
+            {
+                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), ui->tableWidget->item(j,i-1)->text().toInt(), operations[i-variables.length()])));
+            }
+
+            ui->tableWidget->setItem(j,i,item);
         }
+        data.pop_front();
     }
 //    ui->tableWidget->setVerticalHeaderLabels(inArr2);
 
@@ -118,12 +157,17 @@ void MainWindow::buildTable(QStringList variables)
 }
 
 
-QStringList MainWindow::fillVariables(QStringList variables)
+void MainWindow::fillVariables(QStringList variables)
 {
     int rows = (int)pow(2,variables.length());
+    QStringList operations = getOrder();
+
+    ui->tableWidget->setColumnCount(variables.length() + operations.length());
+    ui->tableWidget->setRowCount((int)pow(2,variables.length()));
+
     for (int i = 0; i < rows;i++)
     {
-        if (i <= rows/2)
+        if (i < rows/2)
         {
             QTableWidgetItem * item = new QTableWidgetItem(QString::number(0));
 
@@ -170,32 +214,7 @@ QStringList MainWindow::getOrder()
 //        }
 //        while(text.indexOf('(') != -1);
     }
-}
-
-
-int MainWindow::calculate(int x, int y, char action)
-{
-    if (action == '&')
-    {
-        if ( x == 1 && y == 1)
-            return 1;
-        else
-            return 0;
-    }
-    else if(action == '|')
-    {
-        if (x == 1 && y == 1)
-            return 0;
-        else
-            return 1;
-    }
-    else if (action == '*')
-    {
-        if (x == 0 && y == 0)
-            return 0;
-        else
-            return 1;
-    }
+    return order;
 }
 
 

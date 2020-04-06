@@ -45,14 +45,14 @@ private:
     bool countBrackets(QString data);
     QStringList findVariables(QString data);
 
+    int calculate(int x, int y, QString action);
     QStringList findOperatons(QString str);
     void buildTable(QStringList variables);
 
-    int calculate(int x, int y, char action);
 
     QStringList getOrder();
 
-    QStringList fillVariables(QStringList variables);
+    void fillVariables(QStringList variables);
 };
 
 #endif // MAINWINDOW_H
