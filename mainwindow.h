@@ -46,7 +46,13 @@ private:
     QStringList findVariables(QString data);
 
     QStringList findOperatons(QString str);
-    void buildTable(QStringList variables, QString lineEdit);
+    void buildTable(QStringList variables);
+
+    int calculate(int x, int y, char action);
+
+    QStringList getOrder();
+
+    QStringList fillVariables(QStringList variables);
 };
 
 #endif // MAINWINDOW_H

@@ -36,7 +36,7 @@ void MainWindow::on_pushButton_clicked()
         }
         else
         {
-            buildTable(variables, ui->lineEdit->text());
+            buildTable(variables);
         }
     }
 }
@@ -71,11 +71,11 @@ QStringList MainWindow::findOperatons(QString str)
 }
 
 
-void MainWindow::buildTable(QStringList variables, QString lineEdit)
+void MainWindow::buildTable(QStringList variables)
 {
 
     QStringList data = ui->lineEdit->text().split(QRegularExpression("\\W+"));
-    QStringList operations = lineEdit.split(QRegularExpression("\\w+"));
+    QStringList operations = getOrder();
     operations.removeAll("");
 
     QStringList headers;
@@ -93,6 +93,14 @@ void MainWindow::buildTable(QStringList variables, QString lineEdit)
     ui->tableWidget->setRowCount((int)pow(2,variables.length()));
 
     ui->tableWidget->setHorizontalHeaderLabels(headers);
+
+    for (int i = variables.length(); i < headers.length()+variables.length(); i++)
+    {
+        for (int j = 0; j < (int)pow(2,variables.length());j++)
+        {
+//            QTableWidgetItem *item = new QTableWidgetItem(сalculate(ui->tableWidget->itemAt(j,i), ui->tableWidget->itemAt(j, operations[i-variables.length()]));
+        }
+    }
 //    ui->tableWidget->setVerticalHeaderLabels(inArr2);
 
 //    for (int i = 0; i < all;i++)
@@ -110,6 +118,87 @@ void MainWindow::buildTable(QStringList variables, QString lineEdit)
 }
 
 
+QStringList MainWindow::fillVariables(QStringList variables)
+{
+    int rows = (int)pow(2,variables.length());
+    for (int i = 0; i < rows;i++)
+    {
+        if (i <= rows/2)
+        {
+            QTableWidgetItem * item = new QTableWidgetItem(QString::number(0));
+
+            ui->tableWidget->setItem(i, 0, item);
+        }
+        else
+        {
+            QTableWidgetItem * item = new QTableWidgetItem(QString::number(1));
+
+            ui->tableWidget->setItem(i, 0, item);
+        }
+    }
+
+    if (variables.length() >= 2)
+    {
+        int period;
+
+        if (variables.length() == 2)
+            period = 1;
+        if (variables.length() == 3)
+            period = 2;
+        if (variables.length() == 4)
+            period = 4;
+
+        for (int i = 0; i < rows; i++)
+        {
+//            if (i )
+        }
+    }
+}
+
+
+QStringList MainWindow::getOrder()
+{
+    QStringList order;
+    if (ui->lineEdit->text().indexOf('(') == -1)
+        order = ui->lineEdit->text().split(QRegularExpression("\\w+"));
+    else
+    {
+//        QString text = ui->lineEdit->text();
+//        do
+//        {
+
+//        }
+//        while(text.indexOf('(') != -1);
+    }
+}
+
+
+int MainWindow::calculate(int x, int y, char action)
+{
+    if (action == '&')
+    {
+        if ( x == 1 && y == 1)
+            return 1;
+        else
+            return 0;
+    }
+    else if(action == '|')
+    {
+        if (x == 1 && y == 1)
+            return 0;
+        else
+            return 1;
+    }
+    else if (action == '*')
+    {
+        if (x == 0 && y == 0)
+            return 0;
+        else
+            return 1;
+    }
+}
+
+
 void MainWindow::on_pushButton_2_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+'+');
@@ -117,7 +206,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    ui->lineEdit->setText(ui->lineEdit->text()+'&'+'&');
+    ui->lineEdit->setText(ui->lineEdit->text()+'&');
 }
 
 void MainWindow::on_pushButton_4_clicked()
