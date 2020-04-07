@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -69,6 +69,30 @@ int MainWindow::calculate(int x, int y, QString action)
             return 0;
         else
             return 1;
+    }
+    else if (action == '+'){
+        if(x!=y){
+            return 1;
+        }else return 0;
+    }
+    else if (action == '#'){
+        if (x == 0 && y == 0)
+            return 1;
+        else
+            return 0;
+    }
+    else if (action == '@'){
+        if(x==0&&y==1){
+            return 0;
+        }else return 1;
+    }
+    else if(action == '='){
+        if(x==y){
+            return 1;
+        }else return 0;
+    }
+    else if(action == '!'){
+        return !x;
     }
 }
 
