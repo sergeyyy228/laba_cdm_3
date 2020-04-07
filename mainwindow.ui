@@ -7,11 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>598</width>
-    <height>607</height>
+    <height>585</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>598</width>
+    <height>585</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>598</width>
+    <height>585</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CDM LW 3 by Sezonchik S.S. &amp; Pinchuk S.S.</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -26,23 +38,18 @@ background-color: rgb(247, 247, 247);</string>
      <rect>
       <x>10</x>
       <y>240</y>
-      <width>571</width>
-      <height>291</height>
+      <width>581</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="title">
      <string>Result</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>551</width>
-       <height>271</height>
-      </rect>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidget"/>
+     </item>
+    </layout>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
@@ -56,19 +63,6 @@ background-color: rgb(247, 247, 247);</string>
     <property name="title">
      <string>Data</string>
     </property>
-    <widget class="QPushButton" name="pushButton_11">
-     <property name="geometry">
-      <rect>
-       <x>480</x>
-       <y>160</y>
-       <width>41</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>)</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
@@ -113,7 +107,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_7">
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>370</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -129,7 +123,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_5">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>220</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -145,7 +139,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_9">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>270</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -158,23 +152,10 @@ background-color: rgb(247, 247, 247);</string>
       <string>→</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_10">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>160</y>
-       <width>41</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>(</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>170</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -190,7 +171,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_6">
      <property name="geometry">
       <rect>
-       <x>380</x>
+       <x>420</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -206,7 +187,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>70</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -227,7 +208,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -275,7 +256,7 @@ background-color: rgb(247, 247, 247);</string>
     <widget class="QPushButton" name="pushButton_8">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>320</x>
        <y>160</y>
        <width>41</width>
        <height>41</height>
@@ -340,17 +321,9 @@ background-color: rgb(247, 247, 247);</string>
      <x>0</x>
      <y>0</y>
      <width>598</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

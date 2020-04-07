@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -6,8 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setStyleSheet("background-color: rgb(227, 227, 222);");
-
 }
 
 MainWindow::~MainWindow()
@@ -18,31 +16,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    if(ui->lineEdit->text()==""){
-        QMessageBox msgBox;
-        msgBox.setText("Error");
-        msgBox.setInformativeText("Line is empty!");
-        msgBox.exec();
-    }
-    else if (!countBrackets(ui->lineEdit->text()))
-    {
-        QMessageBox msgBox;
-        msgBox.setText("Error");
-        msgBox.setInformativeText("Number of openning and closing brackets isn't equal!");
-        msgBox.exec();
-    }else
-    {
+    try {
         QStringList variables = findVariables(ui->lineEdit->text());
         buildTable(variables);
+    } catch (...) {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.setInformativeText("Something went wrong. Check the data you entered!");
+        msgBox.exec();
     }
-}
-
-bool MainWindow::countBrackets(QString data)
-{
-    if (data.count("(") == data.count(")"))
-        return true;
-    else
-        return false;
 }
 
 
@@ -110,7 +92,7 @@ void MainWindow::buildTable(QStringList variables)
     for (int i = 0; i < operations.length();i++)
     {
         if (i!= 0)
-            headers.append(headers[headers.length()-1] + data[i]+operations[i]+data[i+1]);
+            headers.append(headers[headers.length()-1] + operations[i]+data[i+1]);
         else
             headers.append(data[i]+operations[i]+data[i+1]);
     }
@@ -125,18 +107,20 @@ void MainWindow::buildTable(QStringList variables)
             if (i == variables.length())
             {
                 int a = variables.indexOf(data[0]);
-                int b = variables.indexOf(data[0]);
+                int b = variables.indexOf(data[1]);
                 
-                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[i-variables.length()])));
+                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[0])));
             }
             else
-            {
-                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), ui->tableWidget->item(j,i-1)->text().toInt(), operations[i-variables.length()])));
-            }
+                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,i-1)->text().toInt(), ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), operations[0])));
 
             ui->tableWidget->setItem(j,i,item);
         }
+        if (i == variables.length())
+            data.pop_front();
+
         data.pop_front();
+        operations.pop_front();
     }
     // змінюємо розміри таблиці
     ui->tableWidget->resizeRowsToContents();
@@ -169,18 +153,8 @@ void MainWindow::fillVariables(int rows, int column, int multiplier, int variabl
 
 QStringList MainWindow::getOrder()
 {
-    QStringList order;
-    if (ui->lineEdit->text().indexOf('(') == -1)
-        order = ui->lineEdit->text().split(QRegularExpression("\\w+"));
-    else
-    {
-//        QString text = ui->lineEdit->text();
-//        do
-//        {
+    QStringList order = ui->lineEdit->text().split(QRegularExpression("\\w+"));
 
-//        }
-//        while(text.indexOf('(') != -1);
-    }
     return order;
 }
 
@@ -230,17 +204,5 @@ void MainWindow::on_pushButton_7_clicked()
 void MainWindow::on_pushButton_6_clicked()
 {
      ui->lineEdit->setText(ui->lineEdit->text()+'|');
-     ui->lineEdit->setFocus();
-}
-
-void MainWindow::on_pushButton_10_clicked()
-{
-     ui->lineEdit->setText(ui->lineEdit->text()+'(');
-     ui->lineEdit->setFocus();
-}
-
-void MainWindow::on_pushButton_11_clicked()
-{
-     ui->lineEdit->setText(ui->lineEdit->text()+')');
      ui->lineEdit->setFocus();
 }
