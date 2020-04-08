@@ -39,18 +39,12 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    bool countBrackets(QString data);
-    QStringList findVariables(QString data);
 
     int calculate(int x, int y, QString action);
-    QStringList findOperatons(QString str);
-    void buildTable(QStringList variables);
 
+    void buildTable();
 
     QStringList getOrder();
-
-    void fillVariables(QStringList variables);
-
 
     void fillVariables(int rows, int column, int multiplier, int variables);
 
