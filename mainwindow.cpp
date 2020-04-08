@@ -70,58 +70,182 @@ int MainWindow::calculate(int x, int y, QString action)
         else
             return 1;
     }
+    else if (action == "!")
+    {
+        if (x == 1)
+            return 0;
+        else
+            return 1;
+    }
 }
 
 
 void MainWindow::buildTable(QStringList variables)
 {
     QStringList data = ui->lineEdit->text().split(QRegularExpression("\\W+"));
-    QStringList operations = getOrder();
-    operations.removeAll("");
+//    data.removeAll("");
+//    QStringList operations = getOrder();
 
-    QStringList headers;
-    headers.append(variables);
+//    operations.removeAll("");
+    variables.removeAll("");
+
+    QStringList headers = variables + getOrder();
+//    headers.append(variables);
 
 
-    ui->tableWidget->setColumnCount(variables.length() + operations.length());
+    ui->tableWidget->setColumnCount(headers.length());
     ui->tableWidget->setRowCount((int)pow(2,variables.length()));
 
 
     fillVariables((int)pow(2,variables.length()),0,2,variables.length());
 
-    for (int i = 0; i < operations.length();i++)
-    {
-        if (i!= 0)
-            headers.append(headers[headers.length()-1] + operations[i]+data[i+1]);
-        else
-            headers.append(data[i]+operations[i]+data[i+1]);
-    }
+//    for  (int i = variables.length(); i < headers.length(); i++)
+//    {
+//        for (int j = 0; j < (int)pow(2,variables.length()); j++)
+//        {
+//             if (headers[i][0] == "!")
+//             {
+//                 QString header = headers[i];
+//                 header.remove("!");
+
+//                 headers.indexOf(header);
+//             }
+//        }
+//    }
+
+//    for (int i = 0; i < operations.length();i++)
+//    {
+//        if (i!= 0)
+//            headers.append(headers[headers.length()-1] + operations[i]+data[i+1]);
+//        else
+//            headers.append(data[i]+operations[i]+data[i+1]);
+//    }
 
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-    for (int i = variables.length(); i < headers.length(); i++)
+    for  (int i = variables.length(); i < headers.length(); i++)
     {
-        for (int j = 0; j < (int)pow(2,variables.length());j++)
+        for (int j = 0; j < (int)pow(2,variables.length()); j++)
         {
-            QTableWidgetItem * item;
-            if (i == variables.length())
-            {
-                int a = variables.indexOf(data[0]);
-                int b = variables.indexOf(data[1]);
-                
-                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[0])));
-            }
-            else
-                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,i-1)->text().toInt(), ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), operations[0])));
+            QTableWidgetItem *item;
+            QString header = headers[i];
+             if (headers[i][0] == "!")
+             {
+//                 header.remove(0,1);
 
-            ui->tableWidget->setItem(j,i,item);
+                 int columnb = -1;
+//                 int columna = -1;
+//                 QString header = headers[i];
+                 for (int k = 0; k < i;k++)
+                 {
+                     if (header.contains(headers[k]))
+                     {
+                         columnb = k;
+                     }
+                 }
+
+                 header.remove(headers[columnb]);
+
+
+
+                 item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,columnb)->text().toInt(),1,"!")));
+
+                 if (header != "!")
+                 {
+                     header = headers[i];
+                     int columnb = -1;
+                     int columna = -1;
+    //                 QString header = headers[i];
+                     for (int k = 0; k < i;k++)
+                     {
+                         if (header.contains(headers[k]))
+                         {
+                             columnb = k;
+                         }
+                     }
+
+                     header.remove(headers[columnb]);
+
+                     for (int k = 0; k < i;k++)
+                     {
+                         if (header.contains(headers[k]))
+                         {
+                             columna = k;
+                         }
+                     }
+
+                     header.remove(headers[columna]);
+
+                     item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,columna)->text().toInt(),ui->tableWidget->item(j,columnb)->text().toInt(),header)));
+                 }
+//                     goto setItem;
+//                 else
+             }
+             else
+             {
+                 int columnb = -1;
+                 int columna = -1;
+//                 QString header = headers[i];
+                 for (int k = 0; k < i;k++)
+                 {
+                     if (header.contains(headers[k]))
+                     {
+                         columnb = k;
+                     }
+                 }
+
+                 header.remove(headers[columnb]);
+
+                 for (int k = 0; k < i;k++)
+                 {
+                     if (header.contains(headers[k]))
+                     {
+                         columna = k;
+                     }
+                 }
+
+                 header.remove(headers[columna]);
+
+                 item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,columna)->text().toInt(),ui->tableWidget->item(j,columnb)->text().toInt(),header)));
+
+
+//                 QString header = headers[i - 1];
+//                 if (headers.indexOf(header) != -1)
+//                 {
+
+//                 }
+//                 header.remove(heade)
+             }
+             ui->tableWidget->setItem(j,i,item);
         }
-        if (i == variables.length())
-            data.pop_front();
-
-        data.pop_front();
-        operations.pop_front();
     }
+
+
+//    for ()
+
+//    for (int i = variables.length(); i < headers.length(); i++)
+//    {
+//        for (int j = 0; j < (int)pow(2,variables.length());j++)
+//        {
+//            QTableWidgetItem * item;
+//            if (i == variables.length())
+//            {
+//                int a = variables.indexOf(data[0]);
+//                int b = variables.indexOf(data[1]);
+                
+//                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[0])));
+//            }
+//            else
+//                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,i-1)->text().toInt(), ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), operations[0])));
+
+//            ui->tableWidget->setItem(j,i,item);
+//        }
+//        if (i == variables.length())
+//            data.pop_front();
+
+//        data.pop_front();
+//        operations.pop_front();
+//    }
     // змінюємо розміри таблиці
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
@@ -153,9 +277,134 @@ void MainWindow::fillVariables(int rows, int column, int multiplier, int variabl
 
 QStringList MainWindow::getOrder()
 {
-    QStringList order = ui->lineEdit->text().split(QRegularExpression("\\w+"));
+    QStringList variables = ui->lineEdit->text().split(QRegularExpression("\\W+"));
+    QStringList operations = ui->lineEdit->text().split(QRegularExpression("\\w{0,1}"));
+    operations.removeAll("");
+    variables.removeAll("");
 
-    return order;
+    QStringList order;
+    std::stack <QString> queue;
+
+    int currentOperation = 0;
+    int currentVariable = 0;
+
+    bool operationsFirst = false;
+
+    QStringList decomposed;
+    if (operations[0] == "!" || operations[0] == "(")
+        operationsFirst = true;
+    else
+        operationsFirst = false;
+
+    for (int i = 0; i < operations.length() + variables.length();i++)
+    {
+        if (currentOperation < operations.length() && (operations[currentOperation] == "(" || operations[currentOperation] == "!"))
+        {
+            if (operationsFirst)
+                operationsFirst = !operationsFirst;
+            decomposed.append(operations[currentOperation]);
+            currentOperation++;
+        }
+        else if (currentOperation < operations.length() && operationsFirst)
+        {
+            if (operations[currentOperation] != ")")
+                operationsFirst = !operationsFirst;
+            decomposed.append(operations[currentOperation]);
+            currentOperation++;
+        }
+        else if(currentVariable < variables.length() && !operationsFirst)
+        {
+            decomposed.append(variables[currentVariable]);
+            currentVariable++;
+            operationsFirst = !operationsFirst;
+        }
+
+    }
+
+    currentVariable = 0;
+    currentOperation = 0;
+
+    // ОБЕРНЕНА ПОЛЬСКА НОТАЦІЯ
+
+    for (int i = 0; i < decomposed.length();i++)
+    {
+        if (decomposed[i] == "(" || decomposed[i] == "!")
+            queue.push(decomposed[i]);
+        else if (decomposed[i] == ")")
+        {
+            while(queue.top() != "(")
+            {
+                order.append(queue.top());
+                queue.pop();
+            }
+            queue.pop();
+        }
+        else if (variables.indexOf(decomposed[i]) != -1)
+            order.append(decomposed[i]);
+        else
+        {
+            if (queue.empty())
+                queue.push(decomposed[i]);
+            else if (moveToOutput(queue.top(),decomposed[i]))
+            {
+                order.append(queue.top());
+                queue.pop();
+                queue.push(decomposed[i]);
+            }
+            else
+                queue.push(decomposed[i]);
+        }
+    }
+
+    while (!queue.empty())
+    {
+        order.append(queue.top());
+        queue.pop();
+    }
+
+    std::stack<QString> result;
+    QStringList headers;
+
+    for (int i = 0; i < order.length();i++)
+    {
+        if (variables.indexOf(order[i]) != -1)
+        {
+            result.push(order[i]);
+        }
+        else
+        {
+            QString a = result.top();
+            result.pop();
+            if (order[i] == "!")
+            {
+                result.push(order[i] + a);
+            }
+            else
+            {
+                QString b = result.top();
+                result.pop();
+                result.push(a + order[i] + b);
+            }
+            headers.append(result.top());
+        }
+    }
+
+    return headers;
+}
+
+
+bool MainWindow::moveToOutput(QString stack, QString current)
+{
+    if (stack == "(")
+        return false;
+    if (stack == "&" && current == "*")
+        return false;
+    if (stack == "@" && (current == "*" || current == "&"))
+        return false;
+    if (stack == "=" && (current == "*" || current == "&" || current == "@"))
+        return false;
+    else
+        return true;
 }
 
 

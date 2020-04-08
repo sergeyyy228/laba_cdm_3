@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <math.h>
+#include <stack>
 
 namespace Ui {
 class MainWindow;
@@ -53,7 +54,7 @@ private:
 
     void fillVariables(int rows, int column, int multiplier, int variables);
 
-
+    bool moveToOutput(QString stack, QString current);
 };
 
 #endif // MAINWINDOW_H
