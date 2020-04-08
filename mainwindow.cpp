@@ -263,7 +263,7 @@ QStringList MainWindow::getOrder()
     currentVariable = 0;
     currentOperation = 0;
 
-    // ОБЕРНЕНА ПОЛЬСКА НОТАЦІЯ
+    // ОБЕРНЕНА ПОЛЬСЬКА НОТАЦІЯ
     // продивляємося кожен елемент
     for (int i = 0; i < decomposed.length();i++)
     {// якщо це відкриваюча скобка або заперечення
@@ -307,7 +307,7 @@ QStringList MainWindow::getOrder()
     for (int i = 0; i < order.length();i++)
     {// якщо це змінна
         if (variables.indexOf(order[i]) != -1)
-        {// додаємо стеку
+        {// додаємо до стеку
             result.push(order[i]);
         }
         else
@@ -335,7 +335,7 @@ QStringList MainWindow::getOrder()
 
 
 // функція. яка визначає, як необхідно додавати операцію у стек
-// за ОБЕРНЕНОЮ ПОЛЬСКОЮ НОТАЦІЄЮ
+// за ОБЕРНЕНОЮ ПОЛЬСЬКОЮ НОТАЦІЄЮ
 // якщо елемент з вищим пріорітетом ніж наявний у стеку,
 // то елемент зі стеку переходить у масив виходу(тру)
 // в іншому випадку, додається у стек
@@ -343,6 +343,8 @@ bool MainWindow::moveToOutput(QString stack, QString current)
 {
     if (stack == "(")
         return false;
+    if (stack == "!")
+        return true;
     if (current == "*")
         return false;
     if (stack == "&" && current == "*")
