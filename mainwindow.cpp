@@ -70,12 +70,29 @@ int MainWindow::calculate(int x, int y, QString action)
         else
             return 1;
     }
-    else if (action == "!")
-    {
-        if (x == 1)
-            return 0;
-        else
+    else if (action == '+'){
+        if(x!=y){
             return 1;
+        }else return 0;
+    }
+    else if (action == '#'){
+        if (x == 0 && y == 0)
+            return 1;
+        else
+            return 0;
+    }
+    else if (action == '@'){
+        if(x==0&&y==1){
+            return 0;
+        }else return 1;
+    }
+    else if(action == '='){
+        if(x==y){
+            return 1;
+        }else return 0;
+    }
+    else if(action == '!'){
+        return !x;
     }
 }
 
@@ -90,7 +107,6 @@ void MainWindow::buildTable(QStringList variables)
     variables.removeAll("");
 
     QStringList headers = variables + getOrder();
-//    headers.append(variables);
 
 
     ui->tableWidget->setColumnCount(headers.length());
@@ -98,28 +114,6 @@ void MainWindow::buildTable(QStringList variables)
 
 
     fillVariables((int)pow(2,variables.length()),0,2,variables.length());
-
-//    for  (int i = variables.length(); i < headers.length(); i++)
-//    {
-//        for (int j = 0; j < (int)pow(2,variables.length()); j++)
-//        {
-//             if (headers[i][0] == "!")
-//             {
-//                 QString header = headers[i];
-//                 header.remove("!");
-
-//                 headers.indexOf(header);
-//             }
-//        }
-//    }
-
-//    for (int i = 0; i < operations.length();i++)
-//    {
-//        if (i!= 0)
-//            headers.append(headers[headers.length()-1] + operations[i]+data[i+1]);
-//        else
-//            headers.append(data[i]+operations[i]+data[i+1]);
-//    }
 
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -131,11 +125,8 @@ void MainWindow::buildTable(QStringList variables)
             QString header = headers[i];
              if (headers[i][0] == "!")
              {
-//                 header.remove(0,1);
 
                  int columnb = -1;
-//                 int columna = -1;
-//                 QString header = headers[i];
                  for (int k = 0; k < i;k++)
                  {
                      if (header.contains(headers[k]))
@@ -155,7 +146,7 @@ void MainWindow::buildTable(QStringList variables)
                      header = headers[i];
                      int columnb = -1;
                      int columna = -1;
-    //                 QString header = headers[i];
+
                      for (int k = 0; k < i;k++)
                      {
                          if (header.contains(headers[k]))
@@ -178,14 +169,11 @@ void MainWindow::buildTable(QStringList variables)
 
                      item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,columna)->text().toInt(),ui->tableWidget->item(j,columnb)->text().toInt(),header)));
                  }
-//                     goto setItem;
-//                 else
              }
              else
              {
                  int columnb = -1;
                  int columna = -1;
-//                 QString header = headers[i];
                  for (int k = 0; k < i;k++)
                  {
                      if (header.contains(headers[k]))
@@ -207,45 +195,10 @@ void MainWindow::buildTable(QStringList variables)
                  header.remove(headers[columna]);
 
                  item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,columna)->text().toInt(),ui->tableWidget->item(j,columnb)->text().toInt(),header)));
-
-
-//                 QString header = headers[i - 1];
-//                 if (headers.indexOf(header) != -1)
-//                 {
-
-//                 }
-//                 header.remove(heade)
              }
              ui->tableWidget->setItem(j,i,item);
         }
     }
-
-
-//    for ()
-
-//    for (int i = variables.length(); i < headers.length(); i++)
-//    {
-//        for (int j = 0; j < (int)pow(2,variables.length());j++)
-//        {
-//            QTableWidgetItem * item;
-//            if (i == variables.length())
-//            {
-//                int a = variables.indexOf(data[0]);
-//                int b = variables.indexOf(data[1]);
-                
-//                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,a)->text().toInt(), ui->tableWidget->item(j,b)->text().toInt(), operations[0])));
-//            }
-//            else
-//                item = new QTableWidgetItem(QString::number(calculate(ui->tableWidget->item(j,i-1)->text().toInt(), ui->tableWidget->item(j,variables.indexOf(data[0]))->text().toInt(), operations[0])));
-
-//            ui->tableWidget->setItem(j,i,item);
-//        }
-//        if (i == variables.length())
-//            data.pop_front();
-
-//        data.pop_front();
-//        operations.pop_front();
-//    }
     // змінюємо розміри таблиці
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
@@ -396,6 +349,8 @@ QStringList MainWindow::getOrder()
 bool MainWindow::moveToOutput(QString stack, QString current)
 {
     if (stack == "(")
+        return false;
+    if (current == "*")
         return false;
     if (stack == "&" && current == "*")
         return false;

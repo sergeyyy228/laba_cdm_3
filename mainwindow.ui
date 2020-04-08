@@ -95,10 +95,10 @@ background-color: rgb(247, 247, 247);</string>
        <normaloff>:/buton</normaloff>:/buton</iconset>
      </property>
      <property name="autoDefault">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="default">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="flat">
       <bool>false</bool>
@@ -321,7 +321,7 @@ background-color: rgb(247, 247, 247);</string>
      <x>0</x>
      <y>0</y>
      <width>598</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
