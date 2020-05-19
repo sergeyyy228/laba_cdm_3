@@ -150,7 +150,7 @@ void MainWindow::buildTable()
                  int columna = -1;
                  for (int k = 0; k < i;k++)
                  {
-                     if (header.contains(headers[k]))
+                     if (header.contains(headers[k]) && (header != headers[k]))
                      {
                          columnb = k;
                      }
@@ -160,7 +160,7 @@ void MainWindow::buildTable()
 
                  for (int k = 0; k < i;k++)
                  {
-                     if (header.contains(headers[k]))
+                     if (header.contains(headers[k]) && (header != headers[k]))
                      {
                          columna = k;
                      }
