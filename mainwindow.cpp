@@ -32,10 +32,10 @@ int MainWindow::calculate(int x, int y, QString action)
 {
     if (action == '&')//коньюкция
     {
-        if ( x == 1 && y == 1)
-            return 1;
-        else
+        if (x == 0 && y == 0)
             return 0;
+        else
+            return 1;
     }
     else if(action == '|')//штрих шеффера
     {
@@ -46,10 +46,10 @@ int MainWindow::calculate(int x, int y, QString action)
     }
     else if (action == '*')//дизьюнкция
     {
-        if (x == 0 && y == 0)
-            return 0;
-        else
+        if ( x == 1 && y == 1)
             return 1;
+        else
+            return 0;
     }
     else if (action == '+'){//прибавление за модулем
         if(x!=y){
@@ -148,23 +148,39 @@ void MainWindow::buildTable()
                  // отримуємо необхідні колонки з частинами наявного виразу(до знака операції і після)
                  int columnb = -1;
                  int columna = -1;
+
+                 QStringList used;
+
                  for (int k = 0; k < i;k++)
                  {
-                     if (header.contains(headers[k]) && (header != headers[k]))
+                     if (header.contains(headers[k]) && (header != headers[k]) && used.indexOf(headers[k]) == -1)
                      {
-                         columnb = k;
+                         QString tmp = header;
+                         tmp.remove(headers[k]);
+
+                         if (tmp[0] == 'x' || tmp[0] == 'y' || tmp[0] == 'z' || tmp[0] == 't')
+                         {
+                             columnb = k;
+                             used.append(headers[k]);
+                         }
+                         else
+                             continue;
                      }
                  }
+                 used.clear();
 
                  header.remove(headers[columnb]);
 
                  for (int k = 0; k < i;k++)
                  {
-                     if (header.contains(headers[k]) && (header != headers[k]))
+                     if (header.contains(headers[k]) && (header != headers[k]) && used.indexOf(headers[k]) == -1)
                      {
                          columna = k;
+                         used.append(headers[k]);
+
                      }
                  }
+
                  header.remove(headers[columna]);
 
                  // отримуємо результат
