@@ -113,7 +113,7 @@ void MainWindow::buildTable()
                  int columnb = -1;
                  for (int k = 0; k < i;k++)
                  {
-                     if (header.contains(headers[k]))
+                     if (header.contains(headers[k]) && (header != headers[k]))
                      {
                          columnb = k;
                      }
