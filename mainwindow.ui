@@ -47,7 +47,13 @@ background-color: rgb(247, 247, 247);</string>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QTableWidget" name="tableWidget"/>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -321,7 +327,7 @@ background-color: rgb(247, 247, 247);</string>
      <x>0</x>
      <y>0</y>
      <width>598</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
